@@ -53,40 +53,28 @@ app.post("/webhook",(req,res)=>{ //i want some
                console.log("boady param "+msg_body);
 
                axios({
-    method: "POST",
-    url: "https://graph.facebook.com/v13.0/" + phon_no_id + "/messages?access_token=" + token,
-    data: {
-        messaging_product: "whatsapp",
-        to: from,
-        type: "interactive",
-        interactive: {
-            type: "button",
-            body: {
-                text: "Choose an option:"
-            },
-            action: {
-                buttons: [
-                    {
-                        type: "reply",
-                        reply: {
-                            id: "button1",
-                            title: "Button 1"
-                        }
-                    },
-                    {
-                        type: "reply",
-                        reply: {
-                            id: "button2",
-                            title: "Button 2"
-                        }
-                    }
-                ]
+                   method:"POST",
+                   url:"https://graph.facebook.com/v13.0/"+phon_no_id+"/messages?access_token="+token,
+                   data:{
+                       messaging_product:"whatsapp",
+                       to:from,
+                       text:{
+                           body:"https://argos-labs.com"
+                       }
+                   },
+                   headers:{
+                       "Content-Type":"application/json"
+                   }
+
+               });
+
+               res.sendStatus(200);
+            }else{
+                res.sendStatus(404);
             }
-        }
-    },
-    headers: {
-        "Content-Type": "application/json"
+
     }
+
 });
 
 app.get("/",(req,res)=>{
