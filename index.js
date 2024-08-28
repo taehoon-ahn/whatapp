@@ -54,19 +54,43 @@ app.post("/webhook",(req,res)=>{ //i want some
 
                axios({
                    method:"POST",
-                   url:"https://graph.facebook.com/v13.0/"+phon_no_id+"/messages?access_token="+token,
+                   url:"https://graph.facebook.com/v20.0/"+phon_no_id+"/messages?access_token="+token,
                    data:{
                        messaging_product:"whatsapp",
+                       "recipient_type": "individual",
                        to:from,
-                       text:{
-                           body:"https://argos-labs.com"
-                       }
+                       type:"interactive",
+                       "interactive":{"type": "button",
+                                      "header"":{"type":"image",
+                                          "image":{"link":"https://i.namu.wiki/i/qagUNtd0l_boPKDz1OsrPZzbf0dtQJ7JhMRtle_xWO6N4q0cz_ehx83UVtxY5lznBbNeDox83Zz6QJNYjXNfWuhyCs5uMADx1MSXRMCnyDcit8dLnf6mdMD6Vjc-Wvkusgp5py0M7RjlmR1g1GOj5g.webp"}}
+                           "}
                    },
-                   headers:{
-                       "Content-Type":"application/json"
+                   "body":{
+                       "text":"argos-labs-test"
+                   },
+                   "footer":{"text": "argos-labs-test-2"},
+                   "action":{
+                       "buttons"[
+        {
+          "type": "reply",
+          "reply": {
+            "id": "change-button",
+            "title": "Change"
+          }
+        },
+        {
+          "type": "reply",
+          "reply": {
+            "id": "cancel-button",
+            "title": "Cancel"
+          }
+        }
+      ]
+
+                   
                    }
 
-               });
+               );
 
                res.sendStatus(200);
             }else{
